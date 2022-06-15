@@ -45,14 +45,12 @@ void setup () {
 }
 
 void loop () {
-  digitalWrite(3, HIGH);   
-  delay(1000);                       
-  digitalWrite(3, LOW);    
-  delay(1000);   
+
     
     DateTime now = rtc.now();
     
     sec = now.second();
+    Serial.println(now.hour);
     rem = sec % 2;
     
     if (rem == 1) {
