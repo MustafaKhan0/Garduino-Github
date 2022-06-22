@@ -6,7 +6,10 @@ int sec;
 int rem;
 int moistPin = A3;
 int moistValue = 0;
-int solenoidPin = 3;
+int moistThresh;
+int solenoidPin = 3;.
+int iHour;
+bool wateredToday = false;
 
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
@@ -46,20 +49,22 @@ void setup () {
 
 void loop () {
 
+  // Get moist value from moisture sensor
+
+
     
     DateTime now = rtc.now();
     
-    sec = now.second();
-    Serial.println(now.hour);
-    rem = sec % 2;
-    
-    if (rem == 1) {
-      Serial.println("odd");
-    }
-    if (rem == 0) {
-      Serial.println("even");
+    iHour = now.hour();
+
+    if (moistValue > moistThresh && iHour > 5 && iHour < 8 && wateredToday == false) {
+       digitalWrite(solenoidPin, HIGH);
+       delay(540000);
+       digitalWrite(solenoidPin, LOW);
+       wateredToday = true;
     }
 
-    Serial.println();
-    delay(random(2000,4000));
+    if (iHour == 24) {
+      wateredToday = false;
+    }
 }
