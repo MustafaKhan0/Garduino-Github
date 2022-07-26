@@ -2,12 +2,10 @@
 #include "RTClib.h"
 
 RTC_PCF8523 rtc;
-int sec;
-int rem;
 int moistPin = A3;
-int moistValue = 0;
-int moistThresh;
-int solenoidPin = 3;.
+int moistValue;
+int moistThresh = 490;
+int solenoidPin = 3;
 int iHour;
 bool wateredToday = false;
 
@@ -51,20 +49,33 @@ void loop () {
 
   // Get moist value from moisture sensor
 
+    moistValue = analogRead(moistPin);
 
+    Serial.println(moistValue);
     
-    DateTime now = rtc.now();
+  // Get time from RTC clock
+    /*DateTime now = rtc.now();
     
-    iHour = now.hour();
+    //iHour = now.hour(); // Gets only the hour value
 
-    if (moistValue > moistThresh && iHour > 5 && iHour < 8 && wateredToday == false) {
+    // Checks if the soil is dry enough to be watered 
+    // & if it is between 5 am - 8 am 
+    // & if it has been watered today
+    
+    if (moistValue > moistThresh && iHour >= 5 && iHour < 8 && wateredToday == false) {
        digitalWrite(solenoidPin, HIGH);
        delay(540000);
        digitalWrite(solenoidPin, LOW);
        wateredToday = true;
+       Serial.println("Watering");
+    }
+    else {
+      Serial.println("Not watering");
     }
 
+
+  // Resets the watered today
     if (iHour == 24) {
       wateredToday = false;
-    }
+    }*/
 }
