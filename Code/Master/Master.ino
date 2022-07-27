@@ -29,7 +29,7 @@ void setup () {
     Serial.println("RTC is NOT initialized, let's set the time!");
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
-  rtc.adjust(DateTime(2022, 5, 11, 15,40,50));
+  rtc.adjust(DateTime(2022, 7, 27, 16,41,50));
   // This line sets the RTC with an explicit date & time, for example to set
   // January 21, 2014 at 3am you would call:
   // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
@@ -54,10 +54,10 @@ void loop () {
     Serial.println(moistValue);
     
   // Get time from RTC clock
-    /*DateTime now = rtc.now();
+    DateTime now = rtc.now();
     
-    //iHour = now.hour(); // Gets only the hour value
-
+    iHour = now.hour(); // Gets only the hour value
+    Serial.println(iHour);
     // Checks if the soil is dry enough to be watered 
     // & if it is between 5 am - 8 am 
     // & if it has been watered today
@@ -77,5 +77,5 @@ void loop () {
   // Resets the watered today
     if (iHour == 24) {
       wateredToday = false;
-    }*/
+    }
 }
